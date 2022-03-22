@@ -1,11 +1,15 @@
+import { useState } from "react";
+
 export const App = () => {
+  const [text, setText] = useState("");
+
   return (
     <div>
       <form onSubmit={(e) => e.preventDefault()}>
         <input
           type="text"
-          value=""
-          onChange={(e) => e.preventDefault()}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
         ></input>
         <input
           type="submit"
