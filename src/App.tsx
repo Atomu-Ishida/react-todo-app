@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 type Todo = {
   value: string;
@@ -6,7 +6,22 @@ type Todo = {
 
 export const App = () => {
   const [text, setText] = useState("");
-  const [todo, setTodo] = useState<Todo[]>([]);
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setText(e.target.value);
+  };
+
+  const handleOnSubmit = () => {
+    if (!text) return;
+
+    const newTodo: Todo = {
+      value: text,
+    };
+
+    setTodos([newTodo, ...todos]);
+    setText("");
+  };
 
   return (
     <div>
@@ -14,13 +29,9 @@ export const App = () => {
         <input
           type="text"
           value={text}
-          onChange={(e) => setText(e.target.value)}
+          onChange={(e) => handleOnChange(e)}
         ></input>
-        <input
-          type="submit"
-          value="追加"
-          onSubmit={(e) => e.preventDefault()}
-        ></input>
+        <input type="submit" value="追加" onSubmit={handleOnSubmit}></input>
       </form>
     </div>
   );
